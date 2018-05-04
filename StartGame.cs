@@ -40,12 +40,13 @@ namespace Minesweeper {
                 }
                 checkWin = board.CheckWin();
                 if (checkWin) loop = false;
-                if (loop) {
+                else if (loop) {
                     string toSay = "Use {o/f <row> <col>}" + board + command;
                     Clear();
                     WriteLine(toSay);
                     Write("Input: ");
-                    input = ReadLine().Trim().Split(' ');
+                    input = ReadLine().Trim()
+                        .Split(", ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 }
             }
             Clear();

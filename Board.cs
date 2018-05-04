@@ -8,10 +8,10 @@ namespace Minesweeper {
         private Tile[,] tile;
 
         public Board(int rows, int cols, int bombs) {
-            if (rows < 3 || rows > 23)
-                throw new ArgumentException("Rows can't be less then 3 or more then 23.");
-            else if (cols < 3 || cols > 23)
-                throw new ArgumentException("Cols can't be less then 3 or more then 23.");
+            if (rows < 3 || rows > 20)
+                throw new ArgumentException("Rows can't be less then 3 or more then 20.");
+            else if (cols < 3 || cols > 20)
+                throw new ArgumentException("Cols can't be less then 3 or more then 20.");
             else if (bombs < 1 || bombs > rows * cols)
                 throw new ArgumentException("Too many or or little bombs placed.");
             this.rows = rows;
@@ -69,8 +69,13 @@ namespace Minesweeper {
         }
 
         public string PrintEnd() {
-            string toSay = "\n\n";
+            string toSay = "\n\n  ";
+            for (int i = 0; i < cols; i++)
+                toSay += i < 9 ? "  0" + (i + 1) + " " : "  " + (i + 1) + " ";
+            toSay += "\n";
             for (int r = 0; r < rows; r++) {
+                toSay += r < 9 ? "0" + (r + 1).ToString().PadRight(2)
+                    : (r + 1).ToString().PadRight(3);
                 for (int c = 0; c < cols; c++) {
                     var status = tile[r, c].Status;
                     toSay += tile[r, c].Mine ? "  X  "
@@ -84,8 +89,13 @@ namespace Minesweeper {
         }
 
         public override string ToString() {
-            string toSay = "\n\n";
+            string toSay = "\n\n  ";
+            for (int i = 0; i < cols; i++)
+                toSay += i < 9 ? "  0" + (i + 1) + " " : "  " + (i + 1) + " ";
+            toSay += "\n";
             for (int r = 0; r < rows; r++) {
+                toSay += r < 9 ? "0" + (r + 1).ToString().PadRight(2)
+                    : (r + 1).ToString().PadRight(3);
                 for (int c = 0; c < cols; c++) {
                     var status = tile[r, c].Status;
                     toSay += status == TileStatus.CLOSED ? " [ ] "
