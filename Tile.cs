@@ -4,33 +4,23 @@
     }
 
     public class Tile {
-        private bool mine;
-        private TileStatus status;
-        private int mines;
-
-        public bool Mine {
-            get => mine;
-        }
-        public TileStatus Status {
-            get => status;
-        }
-        public int Mines {
-            get => mines;
-        }
+        public bool Mine { get; }
+        public TileStatus Status { get; private set; }
+        public int Mines { get; private set; }
 
         public Tile(bool mine = false) {
-            status = TileStatus.CLOSED;
-            this.mine = mine;
+            Status = TileStatus.CLOSED;
+            Mine = mine;
         }
 
         public void Open(int mines) {
-            status = TileStatus.OPEN;
-            this.mines = mines;
+            Status = TileStatus.OPEN;
+            Mines = mines;
         }
 
         public void SetFlag() {
-            if (status != TileStatus.OPEN)
-                status = status != TileStatus.FLAGGED ? TileStatus.FLAGGED : TileStatus.CLOSED;
+            if (Status != TileStatus.OPEN)
+                Status = Status != TileStatus.FLAGGED ? TileStatus.FLAGGED : TileStatus.CLOSED;
         }
     }
 }

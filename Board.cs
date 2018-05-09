@@ -2,10 +2,8 @@
 
 namespace Minesweeper {
     public class Board {
-        private int rows;
-        private int cols;
-        private int bombs;
-        private Tile[,] tile;
+        private readonly int rows, cols, bombs;
+        private readonly Tile[,] tile;
 
         public Board(int rows, int cols, int bombs) {
             if (rows < 3 || rows > 20)

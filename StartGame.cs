@@ -6,7 +6,18 @@ namespace Minesweeper {
         public StartGame() {
             WriteLine("*** Minesweeper ***\n" +
                 "Type <rows>, <cols>, <bombs> to start the game.\n");
-            Board board = GetBoard();
+            Board board;
+            while (true) {
+                Write("Input: ");
+                string[] str = ReadLine().Trim()
+                    .Split(", ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                try {
+                    board = new Board(int.Parse(str[0]), int.Parse(str[1]), int.Parse(str[2]));
+                    break;
+                } catch (Exception ex) {
+                    WriteLine(ex.Message + "\n");
+                }
+            }
             string[] input = { "hi" };
             bool loop = true, checkWin = false;
             while (loop) {
@@ -14,9 +25,7 @@ namespace Minesweeper {
                 switch (input[0].ToLower()) {
                     case "o": {
                         try {
-                            int row = int.Parse(input[1]) - 1;
-                            int col = int.Parse(input[2]) - 1;
-                            board.Open(row, col);
+                            board.Open(int.Parse(input[1]) - 1, int.Parse(input[2]) - 1);
                         } catch (Exception ex) {
                             if (ex.Message == "mine") loop = false;
                             command = ex.Message;
@@ -25,9 +34,7 @@ namespace Minesweeper {
                     }
                     case "f": {
                         try {
-                            int row = int.Parse(input[1]) - 1;
-                            int col = int.Parse(input[2]) - 1;
-                            board.Flag(row, col);
+                            board.Flag(int.Parse(input[1]) - 1, int.Parse(input[2]) - 1);
                         } catch (Exception ex) {
                             command = ex.Message;
                         }
@@ -53,22 +60,6 @@ namespace Minesweeper {
             WriteLine(board.PrintEnd() + (checkWin ? "You won the game!" : "You lost the game!"));
             ReadKey();
             Clear();
-        }
-
-        private Board GetBoard() {
-            while (true) {
-                Write("Input: ");
-                string[] str = ReadLine().Trim()
-                    .Split(", ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                try {
-                    int rows = int.Parse(str[0]);
-                    int cols = int.Parse(str[1]);
-                    int bombs = int.Parse(str[2]);
-                    return new Board(rows, cols, bombs);
-                } catch (Exception ex) {
-                    WriteLine(ex.Message + "\n");
-                }
-            }
         }
     }
 }
