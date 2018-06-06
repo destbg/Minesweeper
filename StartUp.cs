@@ -1,8 +1,8 @@
 ﻿namespace Minesweeper {
-    class StartUp {
-        static void Main() {
+    internal class StartUp {
+        private static void Main() {
             System.Console.Title = "Minesweeper";
-            while (true) new StartGame();
+            while (true) new Game();
         }
     }
 }

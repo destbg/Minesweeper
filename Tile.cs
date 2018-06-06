@@ -1,26 +1,39 @@
-﻿namespace Minesweeper {
+﻿using static System.ConsoleColor;
+using static System.Console;
+
+namespace Minesweeper {
     public enum TileStatus {
-        CLOSED, OPEN, FLAGGED
+        Closed, Opened, Flagged
     }
 
-    public class Tile {
+    internal class Tile {
         public bool Mine { get; }
         public TileStatus Status { get; private set; }
         public int Mines { get; private set; }
 
         public Tile(bool mine = false) {
-            Status = TileStatus.CLOSED;
+            Status = TileStatus.Closed;
             Mine = mine;
         }
 
         public void Open(int mines) {
-            Status = TileStatus.OPEN;
+            ForegroundColor = Green;
+            Write($" {mines} ");
+            Status = TileStatus.Opened;
             Mines = mines;
+            ResetColor();
         }
 
         public void SetFlag() {
-            if (Status != TileStatus.OPEN)
-                Status = Status != TileStatus.FLAGGED ? TileStatus.FLAGGED : TileStatus.CLOSED;
+            if (Status != TileStatus.Opened)
+                Status = Status != TileStatus.Flagged ? TileStatus.Flagged : TileStatus.Closed;
+            if (Status == TileStatus.Closed) {
+                Write(' ');
+                return;
+            }
+            ForegroundColor = Yellow;
+            Write('F');
+            ResetColor();
         }
     }
 }
