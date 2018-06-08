@@ -25,8 +25,7 @@ namespace Minesweeper {
         }
 
         public void SetFlag() {
-            if (Status != TileStatus.Opened)
-                Status = Status != TileStatus.Flagged ? TileStatus.Flagged : TileStatus.Closed;
+            Status = Status != TileStatus.Flagged ? TileStatus.Flagged : TileStatus.Closed;
             if (Status == TileStatus.Closed) {
                 Write(' ');
                 return;

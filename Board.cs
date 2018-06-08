@@ -31,6 +31,11 @@ namespace Minesweeper {
         }
 
         public void Flag(int row, int col) {
+            if (_tile[row, col].Status == Opened) {
+                SetCursorPosition(0, 1);
+                Write("Zone is already opened.");
+                return;
+            }
             SetCursorPosition(col * 5 + 2, row + 3);
             _tile[row, col].SetFlag();
         }
@@ -39,7 +44,7 @@ namespace Minesweeper {
             var tile = _tile[row, col];
             if (tile.Status == Flagged) {
                 SetCursorPosition(0, 1);
-                Write("Zone is flagged.".PadRight(10));
+                Write("Zone is flagged.        ");
                 return;
             }
             if (tile.Mine) {
