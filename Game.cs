@@ -17,23 +17,23 @@ namespace Minesweeper {
                 var input = ReadKey(true).Key;
                 switch (input) {
                     case A:
+                        if (pos1 - 1 == -1) break;
                         pos1--;
-                        if (pos1 == -1) pos1 = 0;
                         break;
 
                     case S:
+                        if (pos2 + 1 == rows) break;
                         pos2++;
-                        if (pos2 == rows) pos2 = rows - 1;
                         break;
 
                     case D:
+                        if (pos1 + 1 == cols) break;
                         pos1++;
-                        if (pos1 == cols) pos1 = cols - 1;
                         break;
 
                     case W:
+                        if (pos2 - 1 == -1) break;
                         pos2--;
-                        if (pos2 == -1) pos2 = 0;
                         break;
 
                     case F:
